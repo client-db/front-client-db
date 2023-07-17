@@ -1,0 +1,7 @@
+.vscode
+.github
+.next
+public
+node_modules
+dist
+*.js
