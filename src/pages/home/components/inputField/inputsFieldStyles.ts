@@ -32,4 +32,5 @@ export const Btn = styled.button`
 	padding: 15px;
 	user-select: none;
 	border: none;
+	cursor: pointer;
 `;

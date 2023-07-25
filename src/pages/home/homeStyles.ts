@@ -27,8 +27,8 @@ export const Memoji = styled.div`
 `;
 
 export const Title = styled.h1`
-	font-family: 'Tourney', sans-serif;
-	font-weight: 400;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 800;
 	font-style: normal;
 	color: #000000;
 	text-transform: uppercase;
@@ -40,7 +40,7 @@ export const Title = styled.h1`
 
 export const Sticker = styled.div`
 	height: 40px;
-	width: 190px;
+	width: 200px;
 	background-color: #ffe5ed;
 	border-radius: 7px;
 	font-family: 'Montserrat', sans-serif;

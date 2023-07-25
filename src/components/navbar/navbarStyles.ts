@@ -21,9 +21,10 @@ export const LinkField = styled.div`
 `;
 
 export const LinkItem = styled.p`
+    font-family: 'Montserrat',sans-serif;
 	text-transform: uppercase;
 	font-size: 16px;
-	font-weight: 600;
+	font-weight: 700;
 	font-style: normal;
 	line-height: 1.2;
 	color: #cfbaf0;

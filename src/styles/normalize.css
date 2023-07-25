@@ -23,6 +23,8 @@ html {
 body {
 	background-color: #a3c4f3;
 	margin: 0;
+	position: relative;
+	height: 100vh;
 }
 
 /**
@@ -356,4 +358,7 @@ template {
 p {
 	margin: 0;
 	font-family: 'Instrument Sans', sans-serif;
+}
+.active p {
+  color: #fff;
 }
