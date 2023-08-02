@@ -5,14 +5,18 @@ const Navbar = () => {
 	return (
 		<Main>
 			<LinkField>
-				<NavLink to='/' >
+				<NavLink to='/'>
 					<LinkItem>Додати клієнта</LinkItem>
 				</NavLink>
 				<NavLink to='/search'>
 					<LinkItem>Пошук</LinkItem>
 				</NavLink>
-				<LinkItem>Оновити дані</LinkItem>
-				<LinkItem>Видалити клієнта</LinkItem>
+				<NavLink to='/update'>
+					<LinkItem>Оновити дані</LinkItem>
+				</NavLink>
+				<NavLink to='/delete'>
+					<LinkItem>Видалити клієнта</LinkItem>
+				</NavLink>
 			</LinkField>
 		</Main>
 	);

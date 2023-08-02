@@ -7,8 +7,6 @@ export const Main = styled.footer`
 	background-color: black;
 	align-items: center;
 	justify-content: space-around;
-	bottom: 0;
-    position: absolute;
 	img {
 		height: 43px;
 		width: 43px;

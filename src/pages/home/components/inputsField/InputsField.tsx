@@ -1,8 +1,25 @@
 import { ChangeEvent, useState } from 'react';
 import DropdownComponent from '../dropdown/Dropdown';
-import { Main, Input, Btn } from './inputsFieldStyles';
+import { Main, Input, Btn, DatepickerContainer } from './inputsFieldStyles';
 import { useApi } from '../../../../api';
-import axios, { AxiosResponse } from 'axios';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/material.css';
+import Datepicker from '../../../../components/datePicker/Datepicker';
+import Loader from '../../../../common/components/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const notify = () =>
+	toast.success('Ви успішно додали клієнта!', {
+		position: 'bottom-left',
+		autoClose: 3000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: false,
+		draggable: true,
+		progress: undefined,
+		theme: 'light',
+	});
 
 const InputsField = () => {
 	const [manager, setManager] = useState<string>('');
@@ -15,17 +32,18 @@ const InputsField = () => {
 	const [contractSendDate, setContractSendDate] = useState<string>('');
 	const [contractSignDate, setContractSignDate] = useState<string>('');
 	const [docsAvailability, setDocsAvailability] = useState<string>('');
+	const [loading, setLoading] = useState<boolean>(false);
 
 	const explicitly = 'Наявно';
 	const notAvailable = 'Немає';
-
 	const handleSubmit = async () => {
 		try {
+			setLoading(true);
 			const data = {
 				connectionDate: connectionDate,
 				objectNumber: objectNum,
 				address: address,
-				phoneNumber: phone,
+				phoneNumber: phone.slice(2),
 				subFee: subFee,
 				docsAvailability: docsAvailability,
 				contractSendDate: contractSendDate,
@@ -33,9 +51,22 @@ const InputsField = () => {
 				manager: manager,
 				recommendation: recomendation,
 			};
-			const res = await useApi.uploadData(data);
+			await useApi.uploadData(data);
 		} catch (error) {
 			console.error('Error occurred:', error);
+		} finally {
+			setAddress('');
+			setConnectionDate('');
+			setContractSignDate('');
+			setContractSendDate('');
+			setDocsAvailability('');
+			setManager('');
+			setObjectNum('');
+			setPhone('');
+			setRecomendation('');
+			setSubFee('');
+			setLoading(false);
+			notify();
 		}
 	};
 
@@ -76,16 +107,24 @@ const InputsField = () => {
 				value={address}
 				onChange={(e: ChangeEvent<HTMLInputElement>) => setAddress(e.target.value)}
 			/>
-			<Input
+			<PhoneInput
+				country={'ua'}
 				placeholder='Номер телефону'
+				disableDropdown
+				inputClass={'phoneInput'}
+				specialLabel=''
 				value={phone}
-				onChange={(e: ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
+				onChange={(phoneNum) => setPhone(phoneNum)}
 			/>
-			<Input
-				placeholder='Дата підключення'
-				value={connectionDate}
-				onChange={(e: ChangeEvent<HTMLInputElement>) => setConnectionDate(e.target.value)}
-			/>
+			<DatepickerContainer>
+				<Input
+					disabled
+					datepicker
+					placeholder='Дата підключення'
+					value={connectionDate}
+				/>
+				<Datepicker setData={setConnectionDate} />
+			</DatepickerContainer>
 			<Input
 				placeholder='Номер об&#39;єкту'
 				value={objectNum}
@@ -101,17 +140,46 @@ const InputsField = () => {
 				notAvailable={notAvailable}
 				setDocsAvailability={setDocsAvailability}
 			/>
-			<Input
-				placeholder='Дата надсилання договору'
-				value={contractSendDate}
-				onChange={(e: ChangeEvent<HTMLInputElement>) => setContractSendDate(e.target.value)}
+			<DatepickerContainer>
+				<Input
+					disabled
+					datepicker
+					placeholder='Дата надсилання договору'
+					value={contractSendDate}
+				/>
+				<Datepicker setData={setContractSendDate} />
+			</DatepickerContainer>
+
+			<DatepickerContainer>
+				<Input
+					disabled
+					datepicker
+					placeholder='Дата отримання договору'
+					value={contractSignDate}
+				/>
+				<Datepicker setData={setContractSignDate} />
+			</DatepickerContainer>
+
+			<Btn
+				onClick={handleSubmitWrapper}
+				disabled={loading}
+				loading={loading}
+			>
+				{loading && <Loader />}
+				{!loading && 'Додати нового клієнта'}
+			</Btn>
+			<ToastContainer
+				position='bottom-left'
+				autoClose={3000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover={false}
+				theme='light'
 			/>
-			<Input
-				placeholder='Дата отримання договору'
-				value={contractSignDate}
-				onChange={(e: ChangeEvent<HTMLInputElement>) => setContractSignDate(e.target.value)}
-			/>
-			<Btn onClick={handleSubmitWrapper}>Додати нового клієнта</Btn>
 		</Main>
 	);
 };

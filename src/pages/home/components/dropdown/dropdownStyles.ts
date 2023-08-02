@@ -23,6 +23,7 @@ export const DropdownBtn = styled.div<IProps>`
 	cursor: pointer;
 `;
 export const DropdownItems = styled.div<IProps>`
+z-index: 1;
 	font-family: 'Montserrat', sans-serif;
 	background: rgb(235, 235, 235);
 	box-shadow: inset 0 0 0 1px transparent;

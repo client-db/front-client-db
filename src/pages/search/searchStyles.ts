@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Main = styled.main`
+	min-height: calc(100vh - 275px);
+
 	max-width: 1100px;
 	width: 100%;
 	height: auto;
@@ -21,22 +23,7 @@ export const Title = styled.h1`
 	height: 60px;
 	margin: 50px 0 0 0;
 `;
-export const Memoji = styled.div`
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 150px;
-	height: 150px;
-	border-radius: 100%;
-	background-color: #ffe5ed;
-	img {
-		margin-top: 5px;
-		margin-left: 5px;
-		width: 150px;
-		height: 150px;
-	}
-	user-select: none;
-`;
+
 export const InputField = styled.div`
 	display: flex;
 	position: relative;
@@ -64,5 +51,5 @@ export const Input = styled.input`
 	outline: none;
 	border: none;
 	border-radius: 10px;
-  line-height: 31px;
+	line-height: 31px;
 `;
